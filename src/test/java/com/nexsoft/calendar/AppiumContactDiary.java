@@ -1,4 +1,6 @@
 package com.nexsoft.calendar;
+import static org.testng.Assert.assertTrue;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DateFormat;
@@ -36,7 +38,7 @@ public class AppiumContactDiary {
 			capabilities.setCapability("appActivity", "com.apozas.contactdiary.MainActivity");
 			capabilities.setCapability("appPackage", "com.apozas.contactdiary");
 			capabilities.setCapability("deviceName", "emulator-5554");
-			capabilities.setCapability("platformVersion", "11.0");
+			capabilities.setCapability("platformVersion", "9.0");
 			
 			
 			driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
@@ -138,7 +140,7 @@ public class AppiumContactDiary {
 			//driver.findElement(By.id("com.apozas.contactdiary:id/fab")).;
 			
 			TouchAction touchNewEvent = new TouchAction(driver);
-			touchNewEvent.tap(PointOption.point(957, 1433)).perform();
+			touchNewEvent.tap(PointOption.point(957, 1763)).perform();
 			
 			driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 			
@@ -165,8 +167,20 @@ public class AppiumContactDiary {
 			contact.txtNote.sendKeys("Ini Testing");
 			contact.save();
 			
-			List<WebElement> lstElement =driver.findElements(By.id("com.apozas.contactdiary:id/diarytable"));
+			//driver.find_element_by_xpath("//android.view.View[@resource-id='rptRole__ctl0_rptCommunicationlt...']")
+
+			List<WebElement> lstElement =driver.findElements(By.xpath("//android.widget.TextView[@resource-id='com.apozas.contactdiary:id/list_item']"));
 			
+			String unknownChar ="👤   ";
+			boolean checkData = false;
+			for (WebElement webElement : lstElement) {
+				String nama = webElement.getText().replace(unknownChar,"");
+				if (nama.equalsIgnoreCase("Dewabrata")) {
+					checkData = true;
+					break;
+				}
+			}
+			assertTrue(checkData);
 		}
 	
 

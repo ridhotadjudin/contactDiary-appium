@@ -117,10 +117,10 @@ public class NewContact {
 
 	public void setTxtEndDate(String date) {
 		txtEndDate.click();
-		if(driver.getCapabilities().getCapability("platformVersion").toString().equalsIgnoreCase("11.0")) {
+	//	if(driver.getCapabilities().getCapability("platformVersion").toString().equalsIgnoreCase("11.0")) {
 		CalendarView calendar = new CalendarView(driver);
 		calendar.setDate(date);
-		}
+		//}
 	}
 	
 	//
